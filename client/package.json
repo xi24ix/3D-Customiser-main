@@ -13,10 +13,12 @@
     "@react-three/drei": "^9.107.3",
     "@react-three/fiber": "^8.16.8",
     "framer-motion": "^11.2.12",
+    "html2canvas": "^1.4.1",
     "maath": "^0.10.7",
     "react": "^18.3.1",
     "react-color": "^2.19.3",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^7.0.1",
     "three": "^0.166.0",
     "valtio": "^1.13.2"
   },

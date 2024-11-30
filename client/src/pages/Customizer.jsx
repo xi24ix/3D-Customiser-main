@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSnapshot } from 'valtio';
+import { useNavigate } from 'react-router-dom';
 
 import config from '../config/config';
 import state from '../store';
@@ -8,9 +9,10 @@ import { download } from '../assets';
 import { downloadCanvasToImage, reader } from '../config/helpers';
 import { EditorTabs, FilterTabs, DecalTypes } from '../config/constants';
 import { fadeAnimation, slideAnimation } from '../config/motion';
-import { AIPicker, ColorPicker, CustomButton, FilePicker, Tab } from '../components';
+import { AIPicker, ColorPicker, CustomButton, FilePicker, Tab, PositionControl } from '../components';
 
 const Customizer = () => {
+  const navigate = useNavigate();
   const snap = useSnapshot(state);
 
   const [file, setFile] = useState('');
@@ -112,8 +114,26 @@ const Customizer = () => {
     reader(file)
       .then((result) => {
         handleDecals(type, result);
+        // Save the uploaded file information
+        state.uploadedFile = {
+          name: file.name,
+          type: file.type,
+          size: file.size,
+          lastModified: file.lastModified,
+          dataUrl: result
+        };
         setActiveEditorTab("");
       })
+  }
+
+  const handleAddToCart = () => {
+    // Capture the canvas state
+    const canvas = document.querySelector('canvas');
+    const designPreview = canvas.toDataURL('image/png');
+    state.designPreview = designPreview;
+    
+    // Navigate to checkout
+    navigate('/checkout');
   }
 
   return (
@@ -141,9 +161,15 @@ const Customizer = () => {
           </motion.div>
 
           <motion.div
-            className="absolute z-10 top-5 right-5"
+            className="absolute z-10 top-5 right-5 flex gap-3"
             {...fadeAnimation}
           >
+            <CustomButton 
+              type="filled"
+              title="Add to Cart"
+              handleClick={handleAddToCart}
+              customStyles="w-fit px-4 py-2.5 font-bold text-sm"
+            />
             <CustomButton 
               type="filled"
               title="Go Back"
@@ -165,6 +191,14 @@ const Customizer = () => {
                 handleClick={() => handleActiveFilterTab(tab.name)}
               />
             ))}
+            {(activeFilterTab.logoShirt || activeFilterTab.stylishShirt) && (
+              <motion.div
+                className="absolute right-0 bottom-20 z-10 bg-white rounded-lg shadow-lg"
+                {...fadeAnimation}
+              >
+                <PositionControl />
+              </motion.div>
+            )}
           </motion.div>
         </>
       )}

@@ -1,4 +1,3 @@
-
 # 3D Shirt Designer WebApp Stack Tool 
 
 ---
@@ -13,12 +12,28 @@ Welcome to the 3D Shirt Designer WebApp repository! This application allows user
   
 - **Logo and Design Upload**: Upload your own logos or designs to be applied to the shirts, either on specific areas or as an all-over print.
 
+- **Position and Size Control**: 
+  - Precise positioning controls (up/down/left/right) for logo and texture placement
+  - Size adjustment controls to scale logos and designs
+  - Real-time preview of position and size changes
+
 - **AI Image Generation**: Utilizes the DALL-E AI model to generate images based on user inputs, offering creative and unique outputs.
+
+- **Design Placement Options**:
+  - Logo Mode: Place designs as logos on specific areas of the shirt
+  - Full Texture Mode: Apply designs as all-over prints
+  - Adjustable positioning and scaling for both modes
+
+- **Preview and Cart Features**:
+  - Real-time 3D preview of all customizations
+  - Design state capture for checkout
+  - Easy navigation between customization and checkout
 
 - **Technologies Used**:
   - **Frontend**: React, Volt, HTML, Tailwind CSS
   - **Animation**: Framer Motion
   - **3D Design**: React Fiber
+  - **State Management**: Valtio
 
 ## Installation and Setup
 
@@ -78,4 +93,3 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 ## License
 
 This project is licensed under the [MIT License](link-to-license).
-
